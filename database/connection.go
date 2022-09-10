@@ -19,5 +19,7 @@ func Connect() {
 
 	connection.AutoMigrate(&models.User{})
 	connection.AutoMigrate(&models.Blog{})
+	connection.AutoMigrate(&models.Comment{})
+	connection.AutoMigrate(&models.CommentResponse{})
 
 }

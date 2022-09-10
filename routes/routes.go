@@ -22,4 +22,8 @@ func Setup(app *fiber.App) {
 	app.Post("/api/deleteBlogById",controllers.DeleteBlogById)
 	app.Post("/api/updateBlog",controllers.UpdateBlog)
 
+	app.Post("/api/addComment",controllers.AddComment)
+	app.Post("/api/addCommentResponse",controllers.AddCommentResponse)
+	app.Post("/api/getCommentsByBlogId",controllers.GetCommentsByBlogId)
+
 }

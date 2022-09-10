@@ -169,3 +169,65 @@ func UpdateBlog(c *fiber.Ctx) error{
 	})
 }
 
+func AddComment(c *fiber.Ctx) error{
+	var comment models.Comment
+	err := c.BodyParser(&comment)
+	if err != nil {
+		return err
+	}
+
+	//创建comment
+	newComment := models.Comment{
+		Id: comment.Id,
+		BlogId: comment.BlogId,
+		Username: comment.Username,
+		Timestamp: comment.Timestamp,
+		MainContent: comment.MainContent,
+	}
+	//插入comment
+	database.DB.Create(&newComment)
+
+	return c.JSON(newComment)
+}
+
+func AddCommentResponse(c *fiber.Ctx) error {
+	var commentResponse models.CommentResponse
+	err := c.BodyParser(&commentResponse)
+	if err != nil {
+		return err
+	}
+
+	newCommentResponse := models.CommentResponse{
+		Id:commentResponse.Id,
+		BlogId:commentResponse.BlogId,
+		CommentId: commentResponse.CommentId,
+		From:commentResponse.From,
+		To:commentResponse.To,
+		Timestamp: commentResponse.Timestamp,
+		MainContent: commentResponse.MainContent,
+	}
+
+	database.DB.Create(&newCommentResponse)
+
+	return c.JSON(newCommentResponse)
+}
+
+func GetCommentsByBlogId(c *fiber.Ctx) error {
+	var data map[string]string
+	err := c.BodyParser(&data)
+	if err != nil {
+		return err
+	}
+
+	var comments []models.Comment
+	database.DB.Where("blog_id=?", data["blogId"]).Find(&comments)
+
+	for i := 0; i < len(comments); i++ {
+		var responses []models.CommentResponse
+		database.DB.Where("blog_id=? AND comment_id=?",data["blogId"],comments[i].Id).Find(&responses)
+		comments[i].Responses = responses
+	}
+
+	return c.JSON(comments)
+}
+

@@ -188,7 +188,7 @@ func ForgotPassword(c *fiber.Ctx) error{
 
 	//发送邮件
 	from := "390930230@qq.com" //ex: "John.Doe@gmail.com"
-	password := "[your password of smtp server]"   // ex: "ieiemcjdkejspqz"
+	password := "ljutsqprelkjcagf"   // ex: "ieiemcjdkejspqz"
 	// receiver address privided through toEmail argument
 	to := []string{data["email"]}
 	// smtp - Simple Mail Transfer Protocol
