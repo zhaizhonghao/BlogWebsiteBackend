@@ -2,6 +2,7 @@ package database
 
 import (
 	"github.com/zhaizhonghao/auth/models"
+	"github.com/zhaizhonghao/auth/staticConfigs"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -9,7 +10,8 @@ import (
 var DB *gorm.DB
 
 func Connect() {
-	connection, err := gorm.Open(mysql.Open("root:123456@/blogwebsite"), &gorm.Config{})
+	dsn := staticConfigs.DATABASE_USERNAME+":"+staticConfigs.DATABASE_PASWORD+"@/"+staticConfigs.DATABASE_NAME
+	connection, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		panic("could not connect to the database!")

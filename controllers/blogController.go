@@ -12,6 +12,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/zhaizhonghao/auth/database"
 	"github.com/zhaizhonghao/auth/models"
+	"github.com/zhaizhonghao/auth/staticConfigs"
 )
 
 func UploadBlog(c *fiber.Ctx) error {
@@ -74,7 +75,7 @@ func UploadImage(c *fiber.Ctx) error{
 	fmt.Println("random file name:", fileNameStr)
 
 	//创建文件
-	filePath := filepath.Join("C:/uploads", fileNameStr)
+	filePath := filepath.Join(staticConfigs.UPLOAD_FILE_PATH, fileNameStr)
 	dst, err := os.Create(filePath)
 	if err != nil {
 		fmt.Println(err)

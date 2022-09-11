@@ -12,6 +12,8 @@ import (
 	"github.com/zhaizhonghao/auth/database"
 	"github.com/zhaizhonghao/auth/models"
 	"golang.org/x/crypto/bcrypt"
+
+	"github.com/zhaizhonghao/auth/staticConfigs"
 )
 
 const SecretKey = "zhaizhonghao de secret"
@@ -188,7 +190,7 @@ func ForgotPassword(c *fiber.Ctx) error{
 
 	//发送邮件
 	from := "390930230@qq.com" //ex: "John.Doe@gmail.com"
-	password := "ljutsqprelkjcagf"   // ex: "ieiemcjdkejspqz"
+	password := staticConfigs.SMTP_PASSWORD   // ex: "ieiemcjdkejspqz"
 	// receiver address privided through toEmail argument
 	to := []string{data["email"]}
 	// smtp - Simple Mail Transfer Protocol
